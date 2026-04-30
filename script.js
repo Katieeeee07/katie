@@ -1,12 +1,8 @@
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth"
-      });
-    }
-  });
+// 點擊導覽列平滑捲動 (Smooth Scroll)
+document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const section = document.querySelector(this.getAttribute('href'));
+        section.scrollIntoView({ behavior: 'smooth' });
+    });
 });
