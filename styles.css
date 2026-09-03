@@ -1,4 +1,4 @@
-/* STREAMING_CHUNK:Defining design variables and root tokens /
+/* STREAMING_CHUNK:Defining color tokens and design variables... /
 / =====================================================
 KATIE FU — DIGITAL PLAYGROUND
 ===================================================== */
@@ -7,10 +7,11 @@ KATIE FU — DIGITAL PLAYGROUND
 --paper: #faf9f4;
 --sage: #dfe5c7;
 --sage-dark: #899276;
-
 --gray: #d9d6d1;
 --dark: #242421;
 --muted: #77766f;
+--placeholder-bg: #ece9df;
+--placeholder-border: #cdc8bc;
 
 --serif: "Cormorant Garamond", Georgia, serif;
 --sans: "DM Sans", Arial, sans-serif;
@@ -19,9 +20,9 @@ KATIE FU — DIGITAL PLAYGROUND
 --transition: all 0.4s ease;
 }
 
-/* STREAMING_CHUNK:Applying base resets /
+/* STREAMING_CHUNK:Resetting default elements and base styles... /
 / =====================================================
-RESET
+RESET & BASE
 ===================================================== */
 
 {
@@ -42,19 +43,12 @@ line-height: 1.7;
 overflow-x: hidden;
 }
 
-img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
-}
-
 a {
 color: inherit;
 text-decoration: none;
 }
 
-/* STREAMING_CHUNK:Styling navigation bar /
+/* STREAMING_CHUNK:Styling navigation bar and brand logo... /
 / =====================================================
 NAVBAR
 ===================================================== */
@@ -111,7 +105,7 @@ nav a:hover::after {
 width: 100%;
 }
 
-/* STREAMING_CHUNK:Styling hero section and typography /
+/* STREAMING_CHUNK:Styling hero cover and typography... /
 / =====================================================
 HERO
 ===================================================== */
@@ -123,15 +117,30 @@ display: flex;
 align-items: center;
 justify-content: center;
 overflow: hidden;
+background: #2b3226;
 }
 
 .hero-image {
 position: absolute;
 inset: 0;
-background-image: url("https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=1800&auto=format&fit=crop");
 background-size: cover;
 background-position: center 35%;
 transform: scale(1.03);
+z-index: 1;
+}
+
+.hero-placeholder-label {
+position: absolute;
+bottom: 25px;
+right: 25px;
+z-index: 3;
+font-size: 11px;
+letter-spacing: 1px;
+color: rgba(255, 255, 255, 0.7);
+background: rgba(0, 0, 0, 0.45);
+padding: 6px 14px;
+border-radius: 20px;
+font-family: monospace;
 }
 
 .hero-overlay {
@@ -139,15 +148,16 @@ position: absolute;
 inset: 0;
 background: linear-gradient(
 to bottom,
-rgba(30, 40, 25, 0.35),
-rgba(30, 40, 25, 0.15) 50%,
-rgba(30, 40, 25, 0.45)
+rgba(30, 40, 25, 0.45),
+rgba(30, 40, 25, 0.2) 50%,
+rgba(30, 40, 25, 0.55)
 );
+z-index: 2;
 }
 
 .hero-content {
 position: relative;
-z-index: 2;
+z-index: 3;
 text-align: center;
 color: white;
 margin-top: 40px;
@@ -187,9 +197,64 @@ padding-bottom: 7px;
 border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 }
 
-/* STREAMING_CHUNK:Styling common sections and headers /
+/* STREAMING_CHUNK:Styling photo slot placeholders and image overlays... /
 / =====================================================
-GENERAL SECTION
+PHOTO SLOTS (ELEGANT EMPTY HOLDERS)
+===================================================== */
+.photo-slot {
+position: relative;
+width: 100%;
+height: 100%;
+background: var(--placeholder-bg);
+border: 1px dashed var(--placeholder-border);
+border-radius: 4px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 14px;
+color: #7b786e;
+transition: var(--transition);
+}
+
+.photo-slot .slot-hint {
+font-size: 11px;
+letter-spacing: 1.5px;
+text-transform: uppercase;
+margin-bottom: 6px;
+font-weight: 500;
+}
+
+.photo-slot .slot-filename {
+font-family: monospace;
+font-size: 12px;
+color: var(--sage-dark);
+background: rgba(255, 255, 255, 0.85);
+padding: 3px 9px;
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.photo-slot img {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+z-index: 2;
+}
+
+.photo-slot img:not([src]),
+.photo-slot img[src=""] {
+display: none;
+}
+
+/* STREAMING_CHUNK:Styling general sections and intro grid... /
+/ =====================================================
+GENERAL SECTION & INTRO
 ===================================================== */
 .section {
 padding: 130px 7vw;
@@ -223,10 +288,6 @@ font-size: 13px;
 letter-spacing: 1px;
 }
 
-/* STREAMING_CHUNK:Styling about intro section /
-/ =====================================================
-ABOUT / INTRO
-===================================================== */
 .intro {
 background: var(--gray);
 }
@@ -263,12 +324,6 @@ color: #55544f;
 
 .intro-photo {
 height: 520px;
-overflow: hidden;
-border-radius: 4px;
-}
-
-.intro-photo img {
-filter: saturate(0.85);
 }
 
 .text-link {
@@ -287,7 +342,7 @@ opacity: 0.5;
 transform: translateX(5px);
 }
 
-/* STREAMING_CHUNK:Styling positions and experience cards /
+/* STREAMING_CHUNK:Styling position timeline items... /
 / =====================================================
 POSITIONS
 ===================================================== */
@@ -315,17 +370,6 @@ border-bottom: 1px solid #d5d2ca;
 
 .position-image {
 height: 180px;
-overflow: hidden;
-border-radius: 2px;
-}
-
-.position-image img {
-filter: saturate(0.8);
-transition: var(--transition);
-}
-
-.position:hover img {
-transform: scale(1.04);
 }
 
 .position-info span {
@@ -355,9 +399,9 @@ letter-spacing: 1.5px;
 color: #99978f;
 }
 
-/* STREAMING_CHUNK:Styling photo galleries /
+/* STREAMING_CHUNK:Styling photo galleries for AIESEC and club activities... /
 / =====================================================
-PHOTO SECTION / AIESEC LIFE
+PHOTO GALLERIES (AIESEC & CLUBS)
 ===================================================== */
 .photo-section {
 padding: 120px 5vw;
@@ -392,32 +436,18 @@ grid-auto-rows: 180px;
 gap: 12px;
 }
 
-.photo {
-overflow: hidden;
+.photo-item {
 position: relative;
-border-radius: 2px;
 }
 
-.photo img {
-transition: transform 0.6s ease;
-filter: saturate(0.85);
-}
-
-.photo:hover img {
-transform: scale(1.07);
-}
-
-.photo.large {
+.photo-item.large {
 grid-row: span 2;
 }
 
-.photo.wide {
+.photo-item.wide {
 grid-column: span 2;
 }
 
-/* =====================================================
-CLUB LIFE
-===================================================== */
 .club-life {
 background: var(--paper);
 }
@@ -430,34 +460,23 @@ grid-template-columns: 1fr 1fr;
 gap: 15px;
 }
 
-.club-photo {
+.club-slot-wrap {
 height: 300px;
-overflow: hidden;
-border-radius: 2px;
 }
 
-.club-photo.tall {
+.club-slot-wrap.tall {
 height: 500px;
 grid-row: span 2;
 }
 
-.club-photo.big {
+.club-slot-wrap.big {
 height: 500px;
 grid-column: span 2;
 }
 
-.club-photo img {
-filter: saturate(0.8);
-transition: transform 0.6s ease;
-}
-
-.club-photo:hover img {
-transform: scale(1.05);
-}
-
-/* STREAMING_CHUNK:Styling work cards and projects /
+/* STREAMING_CHUNK:Styling selected work cards... /
 / =====================================================
-WORK
+SELECTED WORK
 ===================================================== */
 .work {
 background: var(--gray);
@@ -541,7 +560,7 @@ line-height: 1.8;
 margin-bottom: 15px;
 }
 
-/* STREAMING_CHUNK:Styling life lately and reflections /
+/* STREAMING_CHUNK:Styling life updates and journal signature... /
 / =====================================================
 LIFE LATELY
 ===================================================== */
@@ -560,8 +579,6 @@ align-items: center;
 
 .lately-photo {
 height: 650px;
-overflow: hidden;
-border-radius: 4px;
 }
 
 .lately-text h2 {
@@ -597,9 +614,9 @@ color: #777 !important;
 margin-top: 30px;
 }
 
-/* STREAMING_CHUNK:Styling contact and footer sections /
+/* STREAMING_CHUNK:Styling contact section and footer... /
 / =====================================================
-CONTACT
+CONTACT & FOOTER
 ===================================================== */
 .contact {
 padding: 160px 7vw;
@@ -667,9 +684,6 @@ transition: var(--transition);
 color: white;
 }
 
-/* =====================================================
-FOOTER
-===================================================== */
 footer {
 padding: 30px 7vw;
 display: flex;
@@ -681,9 +695,6 @@ font-size: 10px;
 letter-spacing: 1px;
 }
 
-/* =====================================================
-SCROLL ANIMATION
-===================================================== */
 .reveal {
 opacity: 0;
 transform: translateY(35px);
@@ -695,9 +706,9 @@ opacity: 1;
 transform: translateY(0);
 }
 
-/* STREAMING_CHUNK:Configuring responsive media queries /
+/* STREAMING_CHUNK:Configuring responsive mobile styles... /
 / =====================================================
-RESPONSIVE DESIGN
+RESPONSIVE
 ===================================================== */
 @media (max-width: 800px) {
 .navbar {
@@ -757,7 +768,7 @@ grid-template-columns: repeat(2, 1fr);
 grid-auto-rows: 160px;
 }
 
-.photo.wide {
+.photo-item.wide {
 grid-column: span 2;
 }
 
@@ -769,8 +780,8 @@ grid-template-columns: 1fr;
 grid-template-columns: 1fr;
 }
 
-.club-photo.tall,
-.club-photo.big {
+.club-slot-wrap.tall,
+.club-slot-wrap.big {
 height: 400px;
 grid-column: auto;
 grid-row: auto;
